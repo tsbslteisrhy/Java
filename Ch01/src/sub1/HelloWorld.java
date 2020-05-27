@@ -1,9 +1,9 @@
 package sub1;
 
 /*
- * �궇吏� : 2020/04/29
- * �씠由� : �쑀�슚吏�
- * �궡�슜 : �옄諛� HelloWorld 異쒕젰�븯湲�
+ * 날짜 : 2020/04/29
+ * 이름 : 유효진
+ * 내용 : 자바 HelloWorld 출력하기
  */
 public class HelloWorld {
 
