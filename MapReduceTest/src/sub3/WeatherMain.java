@@ -17,16 +17,16 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
  * 이름 : 유효진
  * 내용 : MapReduce 단어 카운트 실습하기
  */
-public class WeatherCountMain {
+public class WeatherMain {
 
 	public static void main(String[] args) throws IOException, ClassNotFoundException, InterruptedException {
 		
 		Configuration conf = new Configuration();
-		Job job = new Job(conf, "WeatherCountJob");
+		Job job = new Job(conf, "WeatherJob");
 		
-		job.setJarByClass(WeatherCountMain.class);
-		job.setMapperClass(WeatherCountMapper.class);
-		job.setReducerClass(WeatherCountReducer.class);
+		job.setJarByClass(WeatherMain.class);
+		job.setMapperClass(WeatherMapper.class);
+		job.setReducerClass(WeatherReducer.class);
 		
 		job.setInputFormatClass(TextInputFormat.class);
 		job.setOutputFormatClass(TextOutputFormat.class);

@@ -9,7 +9,7 @@ import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class WeatherCountMapper extends Mapper<LongWritable, Text, Text, DoubleWritable>{
+public class WeatherMapper extends Mapper<LongWritable, Text, Text, DoubleWritable>{
 	
 	@Override
 	protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
@@ -17,9 +17,13 @@ public class WeatherCountMapper extends Mapper<LongWritable, Text, Text, DoubleW
 		String line = value.toString();
 		String[] tokens = line.split(",");
 		
-		String region = tokens[0];
-		double temp = Double.parseDouble(tokens[2]);
-		
-		context.write(new Text(region), new DoubleWritable(temp));
+		try {
+			String region = tokens[0];
+			double temp = Double.parseDouble(tokens[2]);
+			
+			context.write(new Text(region), new DoubleWritable(temp));
+		} catch(Exception e) {
+			return;
+		}
 	}
 }

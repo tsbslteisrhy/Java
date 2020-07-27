@@ -9,7 +9,7 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class WeatherCountReducer extends Reducer<Text, DoubleWritable, Text, DoubleWritable>{
+public class WeatherReducer extends Reducer<Text, DoubleWritable, Text, DoubleWritable>{
 
 	private List<Double> tempList = new ArrayList<Double>();
 		
