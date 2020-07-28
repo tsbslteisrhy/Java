@@ -5,16 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.hadoop.io.DoubleWritable;
-import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
 public class WeatherReducer extends Reducer<Text, DoubleWritable, Text, DoubleWritable>{
 
-	private List<Double> tempList = new ArrayList<Double>();
+	public List<Double> tempList = new ArrayList<Double>();
 		
 	@Override
-	protected void reduce(Text key, Iterable<DoubleWritable> values, Context context) throws IOException, InterruptedException {
+	protected void reduce(Text city, Iterable<DoubleWritable> values, Context context) throws IOException, InterruptedException {
 	
 		double temp= 0;
 				
@@ -25,13 +24,12 @@ public class WeatherReducer extends Reducer<Text, DoubleWritable, Text, DoubleWr
 		tempList.add(temp);
 		
 		DoubleWritable result = new DoubleWritable(temp);
-		context.write(key, result);
+		context.write(city, result);
 	}
 	
 	@Override
 	protected void cleanup(Context context) throws IOException, InterruptedException {
 		// 마지막 reduce 작업 후 한 번 실행하는 메서드
-		
 		double total = 0;
 		int size = tempList.size();
 		
@@ -39,10 +37,8 @@ public class WeatherReducer extends Reducer<Text, DoubleWritable, Text, DoubleWr
 			total += temp;
 		}
 		
-		double avg = total / size;
-		
 		context.write(new Text("총 : "+size+"건"), null);
-		context.write(new Text("전국 평균 온도 : "+avg+"도"), null);
+		context.write(new Text("평균 온도 : "+total/size+"도"), null);
 	}
 	
 }
